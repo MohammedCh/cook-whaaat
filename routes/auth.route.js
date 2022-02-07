@@ -20,9 +20,10 @@ router.post("/signup", isLoggedOut, (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res
-      .status(500)
-      .render("auth/signup", { errorMessage: "All fields are mandatory. Please provide your username, email and password." });
+    return res.status(500).render("auth/signup", {
+      errorMessage:
+        "All fields are mandatory. Please provide your username, email and password.",
+    });
   }
 
   //make sure the password is strong
@@ -50,6 +51,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       .genSalt(saltRounds)
       .then((salt) => bcryptjs.hash(password, salt))
       .then((hashedPassword) => {
+        console.log('hashed password for login', hashedPassword);
         // Create a user and save it in the database
         return User.create({
           username,
@@ -58,9 +60,10 @@ router.post("/signup", isLoggedOut, (req, res) => {
       })
       .then((user) => {
         // Bind the user to the session object
-        console.log('Newly created user is: ', user);
+        console.log("Newly created user is: ", user);
         req.session.user = user;
-        res.redirect("/cookbook");
+        req.session.user = user._id;
+        res.redirect("../views/recipes/cookbook");
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -71,7 +74,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
         if (error.code === 11000) {
           return res.status(500).render("auth/signup", {
             errorMessage:
-              "Username need to be unique. The username you chose is already in use.",
+              "Username need to be unique. The username you chose is already being used.",
           });
         }
         return res
@@ -109,18 +112,18 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcryptjs.compareSync(password, user.password).then((isSamePassword) => {
-        if (!isSamePassword) {
-          return res
-            .status(400)
-            .render("../views/auth/login", {
+      bcryptjs
+        .compare(password, user.passwordHash)
+        .then((isSamePassword) => {
+          if (!isSamePassword) {
+            return res.status(400).render("../views/auth/login", {
               errorMessage: "Incorrect Password.",
             });
-        }
-        req.session.user = user;
-        // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("../views/recipes/cookbook");
-      });
+          }
+          req.session.user = user;
+          req.session.user = user._id;
+          return res.redirect("../views/recipes/cookbook");
+        });
     })
 
     .catch((err) => {
