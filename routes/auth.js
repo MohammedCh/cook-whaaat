@@ -1,10 +1,10 @@
 const router = require("express").Router();
 
 // ℹ️ Handles password encryption
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const mongoose = require("mongoose");
 
-// How many rounds should bcrypt run the salt (default [10 - 12 rounds])
+// How many rounds should bcryptjs run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
 // Require the User model in order to interact with the database
@@ -55,9 +55,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
     }
 
     // if user is not found, create a new user - start with hashing the password
-    return bcrypt
+    return bcryptjs
       .genSalt(saltRounds)
-      .then((salt) => bcrypt.hash(password, salt))
+      .then((salt) => bcryptjs.hash(password, salt))
       .then((hashedPassword) => {
         // Create a user and save it in the database
         return User.create({
@@ -121,7 +121,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcrypt.compare(password, user.password).then((isSamePassword) => {
+      bcryptjs.compare(password, user.password).then((isSamePassword) => {
         if (!isSamePassword) {
           return res
             .status(400)
