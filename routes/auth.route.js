@@ -1,16 +1,11 @@
 const router = require("express").Router();
-
 // ℹ️ Handles password encryption
 const bcryptjs = require("bcryptjs");
-
 const mongoose = require("mongoose");
-
 // How many rounds should bcryptjs run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
-
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
-
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
@@ -86,26 +81,21 @@ router.post("/signup", isLoggedOut, (req, res) => {
   });
 });
 
-//
+//GET route to show login form to users
 router.get("/login", isLoggedOut, (req, res) => {
-  res.render("auth/login");
+  console.log('hi');
+  res.render("../views/auth/login");
 });
 
+//POST to process login form data
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
-  if (!username) {
-    return res
-      .status(400)
-      .render("auth/login", { errorMessage: "Please provide your username." });
-  }
-
-  // Here we use the same logic as above
-  // - either length based parameters or we check the strength of a password
-  if (password.length < 8) {
-    return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
+  if (username === "" || password === "") {
+    res.render("../views/auth/login", {
+      errorMessage: "Please enter both, email and password to login.",
     });
+    return;
   }
 
   // Search the database for a user with the username submitted in the form
@@ -115,19 +105,21 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       if (!user) {
         return res
           .status(400)
-          .render("auth/login", { errorMessage: "Wrong credentials." });
+          .render("../views/auth/login", { errorMessage: "User not found." });
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcryptjs.compare(password, user.password).then((isSamePassword) => {
+      bcryptjs.compareSync(password, user.password).then((isSamePassword) => {
         if (!isSamePassword) {
           return res
             .status(400)
-            .render("auth/login", { errorMessage: "Wrong credentials." });
+            .render("../views/auth/login", {
+              errorMessage: "Incorrect Password.",
+            });
         }
         req.session.user = user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/");
+        return res.redirect("../views/recipes/cookbook");
       });
     })
 
@@ -139,12 +131,13 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     });
 });
 
+//POST logout route
 router.get("/logout", isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res
         .status(500)
-        .render("auth/logout", { errorMessage: err.message });
+        .render("../views/auth/logout", { errorMessage: err.message });
     }
     res.redirect("/");
   });
