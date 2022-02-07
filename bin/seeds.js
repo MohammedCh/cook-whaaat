@@ -12,7 +12,7 @@ const recipeArr = require("./sample-data/sample-data.json");
 
 Recipe.create(recipeArr)
   .then((recipesCreated) => {
-    console.log(`Number of new drones created: ${recipesCreated.length}`);
+    console.log(`Number of new recipes created: ${recipesCreated.length}`);
 
     mongoose.connection.close();
   })

@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 // ℹ️ Handles password encryption
 const bcryptjs = require("bcryptjs");
+
 const mongoose = require("mongoose");
 
 // How many rounds should bcryptjs run the salt (default [10 - 12 rounds])
@@ -14,44 +15,39 @@ const User = require("../models/User.model");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+//GET route  ==> display the sign up form to users
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
+//POST route ==> to process form data
 router.post("/signup", isLoggedOut, (req, res) => {
   const { username, password } = req.body;
 
-  if (!username) {
+  if (!username || !password) {
     return res
-      .status(400)
-      .render("auth/signup", { errorMessage: "Please provide your username." });
+      .status(500)
+      .render("auth/signup", { errorMessage: "All fields are mandatory. Please provide your username, email and password." });
   }
 
-  if (password.length < 8) {
-    return res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
-    });
-  }
-
-  //   ! This use case is using a regular expression to control for special characters and min length
-  /*
+  //make sure the password is strong
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   if (!regex.test(password)) {
-    return res.status(400).render("signup", {
+    return res.status(500).render("auth/signup", {
       errorMessage:
         "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
   }
-  */
+
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ username }).then((found) => {
     // If the user is found, send the message username is taken
     if (found) {
       return res
-        .status(400)
-        .render("auth.signup", { errorMessage: "Username already taken." });
+        .status(500)
+        .render("auth/signup", { errorMessage: "Username already taken." });
     }
 
     // if user is not found, create a new user - start with hashing the password
@@ -62,13 +58,14 @@ router.post("/signup", isLoggedOut, (req, res) => {
         // Create a user and save it in the database
         return User.create({
           username,
-          password: hashedPassword,
+          passwordHash: hashedPassword,
         });
       })
       .then((user) => {
         // Bind the user to the session object
+        console.log('Newly created user is: ', user);
         req.session.user = user;
-        res.redirect("/");
+        res.redirect("/cookbook");
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -77,7 +74,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
             .render("auth/signup", { errorMessage: error.message });
         }
         if (error.code === 11000) {
-          return res.status(400).render("auth/signup", {
+          return res.status(500).render("auth/signup", {
             errorMessage:
               "Username need to be unique. The username you chose is already in use.",
           });
@@ -89,6 +86,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
   });
 });
 
+//
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
