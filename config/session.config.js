@@ -26,7 +26,7 @@ module.exports = (app) => {
       },
       //save in mongo with connect-mongo
       store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI || "mongodb://0.0.0.0/basic-auth",
+        mongoUrl: process.env.MONGODB_URI || "mongodb://0.0.0.0/cook-whaaat",
 
         // ttl => time to live
         // ttl: 60 * 60 * 24 // 60sec * 60min * 24h => 1 day

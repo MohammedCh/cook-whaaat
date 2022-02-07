@@ -1,0 +1,36 @@
+<h2>Create a recipe</h2>
+<div class="row">
+  <div class="col-md-6">
+    <form action="/recipes/create" method="post" enctype="multipart/form-data">
+      {{! !!! }}
+      <div class="form-group">
+        <label>Title:
+          <input type="text" name="title" class="form-control" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Ingredients:
+          <textarea name="ingredients" cols="30" rows="4" class="form-control">
+          </textarea>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Instructions:
+          <textarea name="instructions" cols="30" rows="4" class="form-control">
+          </textarea>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Image:
+          <input
+            type="file"
+            name="recipe-cover-image"
+            class="form-control-file"
+          />
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
