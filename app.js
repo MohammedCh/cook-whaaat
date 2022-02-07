@@ -21,7 +21,7 @@ require("./config/session.config")(app);
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
-const projectName = "cook-what";
+const projectName = "cook-whaaat";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
@@ -30,7 +30,7 @@ app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 const index = require("./routes/index");
 app.use("/", index);
 
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/auth.route");
 app.use("/auth", authRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
