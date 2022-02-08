@@ -7,8 +7,8 @@ const fileUploader = require("../config/cloudinary.config");
 router.get("/", (req, res) => {
   Recipe.find()
     .then((allRecipes) => {
-      console.log("Retrieved recipes from DB:", allRecipes);
-      res.render("../views/recipes/recipes", { recipes: allRecipes });
+      //console.log("Retrieved recipes from DB:", allRecipes);
+      res.render("../views/recipes/recipe-finder", { recipes: allRecipes });
     })
     .catch((err) => {
       console.log("Something went wrong while getting recipes from DB =>", err);
@@ -26,7 +26,6 @@ router.post(
   fileUploader.single("recipe-cover-image"),
   (req, res) => {
     const { title, ingredients, instructions, Image_Url } = req.body;
-    console.log(req.body);
     Recipe.create({
       Title: title,
       Ingredients: ingredients,
@@ -34,7 +33,7 @@ router.post(
       Image_Url: req.file.path,
     })
       .then((newRecipeFromDB) => {
-        res.redirect("../views/recipes/cookbook", { newRecipeFromDB });
+        res.redirect("/recipes");
       })
       .catch((error) =>
         console.log(`Error while creating a new recipe: ${error}`)
@@ -43,19 +42,21 @@ router.post(
 );
 
 //GET route to render detail view of a specific recipe
-router.get('/:recipeId', (req, res, next) => {
+router.get('/recipes/:recipeId', (req, res, next) => {
     const { recipeId } = req.params;
     console.log("This is the recipe id =>", recipeId);
 
     Recipe.findById(recipeId)
       .then((recipeDetails) => {
-        res.render("../views/recipes/recipe-details", { recipe: recipeDetails });
+        res.render("../views/recipes/partials/recipe-details", { recipe: recipeDetails });
       })
       .catch((err) => {
         console.log(`Err while getting recipe details from the  DB: ${err}`);
         next(err);
       });
 });
+
+//GET route to edit a recipe
 
 
 module.exports = router;
