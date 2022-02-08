@@ -51,12 +51,41 @@ router.get('/recipes/:recipeId', (req, res, next) => {
         res.render("../views/recipes/partials/recipe-details", { recipe: recipeDetails });
       })
       .catch((err) => {
-        console.log(`Err while getting recipe details from the  DB: ${err}`);
+        console.log("Error when retrieving information about recipe", err);
         next(err);
       });
 });
 
 //GET route to edit a recipe
+router.get("/recipes/:recipeId/edit", (req, res, next) => {
+  const { recipeId } = req.params;
 
+  Recipe.findById(recipeId)
+    .then((recipeDetails) => {
+      res.render("../views/recipes/partials/edit-recipe", { recipe: recipeDetails });
+    })
+    .catch((err) =>
+      console.log("Error when retrieving information about recipe", err)
+    );
+});
+
+//POST to handle editing a recipe
+router.post("/recipes/:recipeId/edit", (req, res, next) => {
+  const { recipeId } = req.params;
+  const { title, ingredients, instructions, Image_Url } = req.body;
+
+  Recipe.findByIdAndUpdate(recipeId, {
+    Title: title,
+    Ingredients: ingredients,
+    Instructions: instructions,
+    Image_Url: req.file.path,
+  })
+    .then((recipe) => {
+      res.redirect("/recipes");
+    })
+    .catch((e) => {
+      console.error("Error when updating recipe information: ", e);
+    });
+});
 
 module.exports = router;
