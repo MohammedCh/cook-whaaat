@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
   Recipe.find()
     .then((allRecipes) => {
       //console.log("Retrieved recipes from DB:", allRecipes);
-      res.render("../views/recipes/recipe-finder", { recipes: allRecipes });
+      res.render("../views/index", { recipes: allRecipes });
     })
     .catch((err) => {
       console.log("Something went wrong while getting recipes from DB =>", err);

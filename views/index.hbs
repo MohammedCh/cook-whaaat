@@ -109,7 +109,16 @@
   </div>
   <div class="overflow-hidden" style="max-height: 30vh;">
     <div class="container px-5">
+      <h2>All Recipes</h2>
 
+      <input type="search" placeholder="input ingredients" />
+
+      {{#each recipes}}
+        <div>
+          <h4>{{Title}}</h4>
+        </div>
+
+      {{/each}}
     </div>
   </div>
 </div>
