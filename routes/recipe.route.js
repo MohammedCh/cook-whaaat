@@ -62,7 +62,7 @@ router.get("/recipes/:recipeId/edit", (req, res, next) => {
 
   Recipe.findById(recipeId)
     .then((recipeDetails) => {
-      res.render("../views/recipes/partials/edit-recipe", { recipe: recipeDetails });
+      res.render("../views/recipes/recipe", { recipe: recipeDetails });
     })
     .catch((err) =>
       console.log("Error when retrieving information about recipe", err)
