@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Recipe = require("../models/Recipe.model");
 const fileUploader = require("../config/cloudinary.config");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 //show list of all recipes
 router.get("/", (req, res) => {
@@ -16,22 +17,23 @@ router.get("/", (req, res) => {
 });
 
 //GET route to show form to create recipe
-router.get("/create", (req, res) =>
+router.get("/create", isLoggedIn, (req, res) =>
   res.render("../views/recipes/create-recipe")
 );
 
 //POST route to deal with form data
 router.post(
   "/create",
+  isLoggedIn,
   fileUploader.single("recipe-cover-image"),
   (req, res) => {
     const { title, ingredients, instructions } = req.body;
-
     Recipe.create({
-      Title: title,
-      Ingredients: ingredients,
-      Instructions: instructions,
-      Image_Url: req.file.path,
+      title,
+      ingredients,
+      instructions,
+      imageUrl: req.file.path,
+      creator: req.session.currentUser,
     })
       .then((newRecipeFromDB) => {
         res.redirect("/recipes");
@@ -43,27 +45,26 @@ router.post(
 );
 
 //GET route to render detail view of a specific recipe
-router.get('/:recipeId', (req, res, next) => {
-    const { recipeId } = req.params;
-    console.log("This is the recipe id =>", recipeId);
+router.get("/:recipeId", (req, res, next) => {
+  const { recipeId } = req.params;
+  console.log("This is the recipe id =>", recipeId);
 
-    Recipe.findById(recipeId)
-      .then((recipeDetails) => {
-        res.render("../views/recipes/recipeDetails", { recipe: recipeDetails });
-      })
-      .catch((err) => {
-        console.log("Error when retrieving information about recipe", err);
-        next(err);
-      });
+  Recipe.findById(recipeId)
+    .then((recipeDetails) => {
+      res.render("../views/recipes/recipeDetails", { recipe: recipeDetails });
+    })
+    .catch((err) => {
+      console.log("Error when retrieving information about recipe", err);
+      next(err);
+    });
 });
 
 //GET route to edit a recipe
-router.get("/:recipeId/edit", (req, res, next) => {
+router.get("/:recipeId/edit", isLoggedIn, (req, res, next) => {
   const { recipeId } = req.params;
 
   Recipe.findById(recipeId)
     .then((recipeDetails) => {
-      console.log('recipe details', recipeDetails);
       res.render("../views/recipes/edit-recipe", { recipe: recipeDetails });
     })
     .catch((err) =>
@@ -72,44 +73,29 @@ router.get("/:recipeId/edit", (req, res, next) => {
 });
 
 //POST to handle editing a recipe
-router.post("/:recipeId/edit", fileUploader.single("recipe-cover-image"), (req, res ) => {
-
-  const { recipeId } = req.params;
-  const { title, ingredients, instructions } = req.body;
-
-  Recipe.findByIdAndUpdate(recipeId, {
-    Title: title,
-    Ingredients: ingredients,
-    Instructions: instructions,
-    Image_Url: req.file.path,
-  })
-    .then((recipe) => {
-      res.redirect("/cookbook");
-    })
-    .catch((e) => {
-      console.error("Error when updating recipe information: ", e);
-    });
-});
-
-//POST route to deal with form data
 router.post(
-  "/create",
+  "/:recipeId/edit",
+  isLoggedIn,
   fileUploader.single("recipe-cover-image"),
   (req, res) => {
+    const { recipeId } = req.params;
     const { title, ingredients, instructions } = req.body;
-
-    Recipe.create({
-      Title: title,
-      Ingredients: ingredients,
-      Instructions: instructions,
-      Image_Url: req.file.path,
-    })
-      .then((newRecipeFromDB) => {
-        res.redirect("/recipes");
+    Recipe.findByIdAndUpdate(
+      recipeId,
+      {
+        title,
+        ingredients,
+        instructions,
+        imageUrl: req.file.path,
+      },
+      { new: true }
+    )
+      .then((recipe) => {
+        res.redirect("/cookbook");
       })
-      .catch((error) =>
-        console.log(`Error while creating a new recipe: ${error}`)
-      );
+      .catch((e) => {
+        console.error("Error when updating recipe information: ", e);
+      });
   }
 );
 

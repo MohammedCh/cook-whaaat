@@ -60,7 +60,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       .then((username) => {
         // Bind the user to the session object
         console.log("Newly created user is: ", username);
-        req.session.currentUser = user;
+        req.session.currentUser = username;
         //req.session.user = user._id;
         res.redirect("/cookbook");
       })

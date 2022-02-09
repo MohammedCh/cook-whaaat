@@ -4,24 +4,24 @@
     <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label class="form-label">Title:
-          <input type="text" name="Title" class="form-control" value="{{recipe.Title}}" />
+          <input type="text" name="title" class="form-control" value="{{recipe.title}}" />
         </label>
       </div>
       <div class="form-group">
-        <label class="form-label">Ingredients:
-          <textarea name="Ingredients" cols="30" rows="4" class="form-control">
-          {{recipe.Ingredients}}
+        <label class="form-label">ingredients:
+          <textarea name="ingredients" cols="30" rows="4" class="form-control">
+          {{recipe.ingredients}}
           </textarea>
         </label>
       </div>
       <div class="form-group">
         <label class="form-label">Instructions:
-          <textarea name="Instructions" cols="30" rows="4" class="form-control">
-          {{recipe.Instructions}}
+          <textarea name="instructions" cols="30" rows="4" class="form-control">
+          {{recipe.instructions}}
           </textarea>
         </label>
       </div>
-      
+
       <div class="form-group">
         <label class="form-label">Image:
           <input
@@ -32,10 +32,10 @@
         </label>
       </div>
       <div>
-        <img src="{{recipe.Image_Url}}" class="img-fluid rounded-start" alt="{{recipe.Title}}">
+        <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start" alt="{{recipe.title}}">
       </div>
       <button type="submit" class="btn btn-primary">Save Changes</button>
-      
+
     </form>
     <form action="/cookbook">
         <button type="submit" class="btn btn-secondary">Cancel</button>

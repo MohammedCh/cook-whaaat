@@ -1,8 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap");
+
+:root {
+  --beige: #fdf6de;
+  --light-brown: #7c5421;
+  --white: #ffffff;
+  --black: #181818;
+  --light-pink: #eadadd;
+  --dark-brown: #451019;
+  --light-grey: #e5e5e5;
+  --orange: #c78411;
+}
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-image: url("../images/background.png");
-  /* background-size: cover; */
-  background-size: 100% auto;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -11,4 +25,18 @@ a {
 
 h1 {
   color: 15px;
+}
+
+#logo {
+  width: 40%;
+}
+
+#nav-link {
+  color: var(--black);
+  text-decoration: none;
+  padding: 24px;
+}
+
+#nav-link:hover {
+  color: var(--orange);
 }

@@ -2,30 +2,31 @@ const { Schema, model } = require("mongoose");
 
 const recipeSchema = new Schema(
   {
-    Title: {
+    title: {
       type: String,
       trim: true,
-      required: [true, "Title is required."],
+      required: [true, "title is required."],
       unique: true,
     },
-    Ingredients: {
+    ingredients: {
       type: String,
       trim: true,
       required: [true, "Ingredients are required."],
       unique: true,
     },
-    Instructions: {
+    instructions: {
       type: String,
       trim: true,
       required: [true, "Instructions are required."],
       unique: true,
     },
-    Image_Url: {
+    imageUrl: {
       type: String,
       trim: true,
       required: [true, "Image is required."],
       unique: true,
     },
+    creator: { type: String, required: [true, "creator is required."] },
   },
   {
     timestamps: true,
