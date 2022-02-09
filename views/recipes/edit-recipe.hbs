@@ -1,0 +1,44 @@
+<h2>Edit recipe</h2>
+<div class="row">
+  <div class="mb-3">
+    <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label class="form-label">Title:
+          <input type="text" name="Title" class="form-control" value="{{recipe.Title}}" />
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ingredients:
+          <textarea name="Ingredients" cols="30" rows="4" class="form-control">
+          {{recipe.Ingredients}}
+          </textarea>
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instructions:
+          <textarea name="Instructions" cols="30" rows="4" class="form-control">
+          {{recipe.Instructions}}
+          </textarea>
+        </label>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Image:
+          <input
+            type="file"
+            name="recipe-cover-image"
+            class="form-control-file"
+          />
+        </label>
+      </div>
+      <div>
+        <img src="{{recipe.Image_Url}}" class="img-fluid rounded-start" alt="{{recipe.Title}}">
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      
+    </form>
+    <form action="/cookbook">
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+    </form>
+  </div>
+</div>

@@ -22,10 +22,8 @@
               fill="#777"
               dy=".3em"
             >140x140</text></svg>
-
-          <h2>Heading</h2>
-          <p>Some representative placeholder content for the three columns of
-            text below the carousel. This is the first column.</p>
+          <h3>Search ingredients</h3>
+          <p>Input the ingredients you have available</p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <svg
@@ -47,10 +45,8 @@
               fill="#777"
               dy=".3em"
             >140x140</text></svg>
-
-          <h2>Heading</h2>
-          <p>Another exciting bit of representative placeholder content. This
-            time, we've moved on to the second column.</p>
+          <h3>Select recipe</h3>
+          <p>Choose a recipe that you like from the list</p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <svg
@@ -72,52 +68,44 @@
               fill="#777"
               dy=".3em"
             >140x140</text></svg>
-
-          <h2>Heading</h2>
-          <p>And lastly this, the third column of representative placeholder
-            content.</p>
+          <h3>Follow recipe</h3>
+          <p>Follow the instructions and enjoy!</p>
         </div><!-- /.col-lg-4 -->
       </div>
     </div>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-      <div class="row">
-        <form
-          class="row g-3 align-items-center index-row"
-          action="/artist-search"
-          method="GET"
-        >
-          <div class="col-auto">
-            <label for="artistName" class="col-form-label">Artist name:</label>
-          </div>
-          <div class="col-auto">
+    <form action="/recipe-search" method="GET">
+      <div class="row g-3 justify-content-sm-center">
+        <div class="col-sm-6">
+          <div class="input-group mb-3">
             <input
               type="text"
-              id="artistName"
               class="form-control"
-              name="artistName"
+              id="searchInput"
+              placeholder="tomato potato garlic ..."
+              value=""
+              required=""
             />
+            <button
+              class="btn btn-outline-secondary"
+              type="submit"
+              id="button-addon1"
+            >Search</button>
           </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </div>
-          <span id="artistHelp" class="form-text">which artist's songs would you
-            like us to find?
+          <span id="searchHelp" class="form-text">Type in a list of ingredients
+            separated by spaces
           </span>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
   <div class="overflow-hidden" style="max-height: 30vh;">
     <div class="container px-5">
       <h2>All Recipes</h2>
-
       <input type="search" placeholder="input ingredients" />
-
       {{#each recipes}}
         <div>
           <h4>{{Title}}</h4>
         </div>
-
       {{/each}}
     </div>
   </div>

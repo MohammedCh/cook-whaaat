@@ -1,0 +1,23 @@
+
+    <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <h2>{{recipe.Title}}</h2>
+        </div>
+        <div class="form-group">
+            <h4>Ingredients</h4>
+            <p>{{recipe.Ingredients}}</p>
+        </div>
+        <div class="form-group">
+            <h4>Instructions</h4>
+            <p>{{recipe.Instructions}}</p>
+        </div>
+        <div class="form-group">
+           <img src="{{recipe.Image_Url}}" class="img-fluid rounded-start" alt="{{recipe.Title}}">
+        </div>
+
+        <form action="/recipes/{{recipe._id}}/edit" method="get">
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>     
+    </div>
+    </div>

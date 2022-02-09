@@ -36,7 +36,6 @@ router.post("/signup", isLoggedOut, (req, res) => {
     });
   }
 
-
   // Search the database for a user with the username submitted in the form
   User.findOne({ username }).then((found) => {
     // If the user is found, send the message username is taken
@@ -58,12 +57,12 @@ router.post("/signup", isLoggedOut, (req, res) => {
           passwordHash: hashedPassword,
         });
       })
-      .then((user) => {
+      .then((username) => {
         // Bind the user to the session object
-        console.log("Newly created user is: ", user);
-        req.session.user = user;
-        req.session.user = user._id;
-        res.redirect("../views/recipes/cookbook");
+        console.log("Newly created user is: ", username);
+        req.session.currentUser = user;
+        //req.session.user = user._id;
+        res.redirect("/cookbook");
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -82,6 +81,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
           .render("auth/signup", { errorMessage: error.message });
       });
   });
+  return username;
 });
 
 //GET route to show login form to users
@@ -95,10 +95,10 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
 
   if (username === "" || password === "") {
-    res.render("../views/auth/login", {
+    res.redirect("/login", {
       errorMessage: "Please enter both, email and password to login.",
     });
-    return;
+    return username;
   }
 
   // Search the database for a user with the username submitted in the form
@@ -120,9 +120,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
               errorMessage: "Incorrect Password.",
             });
           }
-          req.session.user = user;
-          req.session.user = user._id;
-          return res.redirect("../views/recipes/cookbook");
+          req.session.currentUser = user;
+          //req.session.user = user._id;
+          return res.redirect("/cookbook");
         });
     })
 
@@ -140,7 +140,7 @@ router.get("/logout", isLoggedIn, (req, res) => {
     if (err) {
       return res
         .status(500)
-        .render("../views/auth/logout", { errorMessage: err.message });
+        .render("../views/auth/logout", { errorMessage: err.message , userInSession: req.session.currentUser });
     }
     res.redirect("/");
   });

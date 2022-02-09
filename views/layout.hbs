@@ -52,15 +52,21 @@
               height="32"
               class="rounded-circle"
             />
-          </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+          </a>     
+            {{#if userInSession}}
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Login</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-            <li><a class="dropdown-item" href="#">Sign up</a></li>
-          </ul>
-        </div>
+            <li><a class="dropdown-item" href="/auth/logout">Log Out</a></li>
+          </ul>  
+            {{else}}
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="/auth/login">Login</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
+          </ul>  
+            {{/if}}
+           </div>
       </header>
     </div>
     {{{body}}}
