@@ -1,24 +1,19 @@
-//amanda's comment
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
 require("dotenv/config");
-
-// ℹ️ Connects to the database
 require("./db");
-
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
 const express = require("express");
-
-// Handles the handlebars
-// https://www.npmjs.com/package/hbs
-const hbs = require("hbs");
-
 const app = express();
+const hbs = require("hbs");
+const path = require("path");
+
+//partials
+//register partials (partial view of the layout, different than the main layout)
+hbs.registerPartials(__dirname + "/views/recipes/partials");
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+
 
 require("./config/session.config")(app);
-
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
 const projectName = "cook-whaaat";

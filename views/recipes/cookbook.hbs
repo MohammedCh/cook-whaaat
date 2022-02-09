@@ -1,1 +1,14 @@
-Hi
+{{#if userInSession}}
+    <h2>{{ userInSession.username }}'s Cookbook</h2>
+    <p>All your recipes in one place!</p>
+{{else}}
+    <p>Still no logged in user, sorry!</p>
+{{/if}}
+
+<div class="container">
+  <div class="row">
+      {{#each recipes}}
+        {{> recipeCard this}}
+      {{/each}}
+  </div>
+</div>
