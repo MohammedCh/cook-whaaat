@@ -12,6 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -31,36 +32,20 @@
               id="nav-link"
               aria-current="page"
             >Recipe Finder</a></li>
-          <li><a href="/recipes/cookbook" id="nav-link">My Cookbook</a></li>
-        </ul>
-        <div class="dropdown text-end">
-          <a
-            href="#"
-            class="d-block link-dark text-decoration-none dropdown-toggle"
-            id="dropdownUser1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >My Cookbook</a>
+
+          <li><a href="/cookbook" id="nav-link">My Cookbook</a></li>
+
           {{#if userInSession}}
-            <ul
-              class="dropdown-menu text-small"
-              aria-labelledby="dropdownUser1"
-            >
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/auth/logout">Log Out</a></li>
-            </ul>
+            <li class="nav-item"><a id="nav-link" href="/auth/logout">Log Out</a></li>
           {{else}}
-            <ul
-              class="dropdown-menu text-small"
-              aria-labelledby="dropdownUser1"
-            >
-              <li><a class="dropdown-item" href="/auth/login">Login</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
-            </ul>
+            <li class="nav-item"><a
+                id="nav-link"
+                href="/auth/login"
+              >Login</a></li>
+            <li class="nav-item"><a id="nav-link" href="/auth/signup">Sign up</a></li>
           {{/if}}
-        </div>
+        </ul>
+
       </header>
     </div>
     {{{body}}}

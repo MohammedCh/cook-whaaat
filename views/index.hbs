@@ -73,7 +73,6 @@
         </div><!-- /.col-lg-4 -->
       </div>
     </div>
-    <form action="/recipe-search" method="GET">
       <div class="row g-3 justify-content-sm-center">
         <div class="col-sm-6">
           <div class="input-group mb-3">
@@ -84,11 +83,12 @@
               placeholder="tomato potato garlic ..."
               value=""
               required=""
+              name="searchedString"
             />
             <button
               class="btn btn-outline-secondary"
               type="submit"
-              id="button-addon1"
+              id="search-button"
             >Search</button>
           </div>
           <span id="searchHelp" class="form-text">Type in a list of ingredients
@@ -96,17 +96,17 @@
           </span>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="overflow-hidden" style="max-height: 30vh;">
-    <div class="container px-5">
-      <h2>All Recipes</h2>
-      <input type="search" placeholder="input ingredients" />
-      {{#each recipes}}
-        <div>
-          <h4>{{title}}</h4>
-        </div>
-      {{/each}}
+    <div class="row" id="searchResults">
+
     </div>
+
   </div>
 </div>
+
+<script type="text/javascript">
+  $('#search-button').click(function(){
+    $.post("recipes/search", $( "#searchInput" ).serialize(), function(data){
+      $("#searchResults").html(data);
+    })
+  })
+</script>
