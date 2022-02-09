@@ -1,8 +1,7 @@
 <h2>Edit recipe</h2>
-{{!-- TODO needs work --}}
 <div class="row">
   <div class="mb-3">
-    <form action="/recipes/{{recipe._id}}/edit" method="post">
+    <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label class="form-label">Title:
           <input type="text" name="Title" class="form-control" value="{{recipe.Title}}" />
@@ -22,6 +21,7 @@
           </textarea>
         </label>
       </div>
+      
       <div class="form-group">
         <label class="form-label">Image:
           <input
@@ -31,7 +31,9 @@
           />
         </label>
       </div>
-
+      <div>
+        <img src="{{recipe.Image_Url}}" class="img-fluid rounded-start" alt="{{recipe.Title}}">
+      </div>
       <button type="submit" class="btn btn-primary">Save Changes</button>
       
     </form>
