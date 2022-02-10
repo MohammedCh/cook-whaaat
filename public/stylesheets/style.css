@@ -25,6 +25,20 @@ body {
   background-size: cover;
 }
 
+a {
+  text-decoration: none;
+}
+
+.apple {
+  font-family: 'Homemade Apple', cursive, Verdana;
+}
+
+.recipe-image {
+  filter: drop-shadow(10px 20px 30px rgba(0, 0, 0, 0.25));
+  border-radius: 20px;  
+  opacity: 0.9;
+}
+
 #logo {
   width: 40%;
 }
@@ -40,8 +54,8 @@ body {
 }
 
 #image-pill {
-  width: 40%;
-  height: 70%;
+  width: 80%; 
+  height: 250px; 
   border-radius: 50px;
   object-fit: cover;
   margin-bottom: 20px;
@@ -51,7 +65,7 @@ body {
   margin: 0 25%;
 }
 
-#create-recipe {
+.create-recipe {
   text-align: left;
   margin-left: 10%;
 }
@@ -60,8 +74,8 @@ body {
   #signup {
     margin: 0 40%;
   }
-  #create-recipe {
-    margin-left: 35%;
+  .create-recipe {
+  margin-left: 20%;
   }
 }
 
@@ -74,6 +88,21 @@ body {
   background-color: #8b5d0c;
 }
 
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.card-body {
+  padding-left: 0;
+}
+
+.someInput {
+  flex: 0 1 100px;
+  
 .hidden {
   display: none;
 }

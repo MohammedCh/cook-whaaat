@@ -1,25 +1,21 @@
 
 <div class="row">
   <div class="mb-5">
-    <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data" id="create-recipe" >
-     <h2 class="justify-content-center mb-3"{{!-- style="margin-left: 15%;" --}}>Edit Recipe</h2> 
+    <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data" class="create-recipe" >
+     <h4 class="justify-content-center mb-3">Edit Recipe</h4> 
     <div class="form-group mb-3">
         <label class="form-label">Title:
-          <input for="exampleFormControlInput1" style="width: 200% !important;" type="text" name="title" class="form-control" value="{{recipe.title}}" />
+          <textarea name="title"  cols="90" rows="1" class="form-control">{{recipe.title}}</textarea>
         </label>
       </div>
       <div class="form-group">
-        <label class="form-label">ingredients:
-          <textarea name="ingredients" cols="30" rows="10" class="form-control mb-3" style="width: 137% !important;">
-          {{recipe.ingredients}}
-          </textarea>
+        <label class="form-label">Ingredients:
+          <textarea name="ingredients" cols="90" rows="10" class="form-control mb-3">{{recipe.ingredients}}</textarea>
         </label>
       </div>
       <div class="form-group">
         <label class="form-label">Instructions:
-          <textarea name="instructions" cols="30" rows="10" class="form-control mb-3" style="width: 137% !important;">
-          {{recipe.instructions}}
-          </textarea>
+          <textarea name="instructions" cols="90" rows="10" class="form-control mb-3">{{recipe.instructions}}</textarea>
         </label>
       </div>
 
@@ -30,7 +26,6 @@
             name="recipe-cover-image"
             class="form-control mb-3"
             id="formFile"
-            style="width: 121% !important;"
           />
         </label>
       </div>
@@ -40,8 +35,8 @@
       <button type="submit" id="btn" class="btn mb-3">Save Changes</button>
 
     </form>
-    <form id="create-recipe" action="/cookbook">
-        <button type="submit" class="btn {{!-- btn-secondary --}} mb-3">Cancel</button>
+    <form class="create-recipe" action="/cookbook">
+        <button type="submit" class="btn mb-3">Cancel</button>
     </form>
   </div>
 </div>
