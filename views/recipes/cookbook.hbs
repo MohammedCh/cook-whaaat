@@ -1,12 +1,16 @@
-{{#if userInSession}}
-    <h2>{{ userInSession.username }}'s Cookbook</h2>
-    <p>All your recipes in one place!</p>
+
+  {{#if userInSession}}
+  <div class="px-5">
+    <h2 >{{ userInSession.username }}'s Cookbook</h2>
+    <p class="mb-4">All your recipes in one place!</p>
+  </div>
+    
 {{else}}
     <p>Still no logged in user, sorry!</p>
 {{/if}}
 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+<nav class="px-5">
+  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
     <button
       class="nav-link active"
       id="nav-home-tab"
@@ -16,6 +20,7 @@
       role="tab"
       aria-controls="nav-home"
       aria-selected="true"
+      style="color: var(--white); background-color: #E3C797 !important;"
     >All Recipes</button>
     <button
       class="nav-link"
@@ -26,7 +31,8 @@
       role="tab"
       aria-controls="nav-profile"
       aria-selected="false"
-    >Favorites</button>
+      style="color: var(--white) !important; background-color: #C2B097 !important;"
+    >Favorites</button> 
     <button
       class="nav-link"
       id="nav-contact-tab"
@@ -36,6 +42,7 @@
       role="tab"
       aria-controls="nav-contact"
       aria-selected="false"
+      style="color: var(--white) !important; background-color: #C4BA9B !important;"
     >My Recipes</button>
     <button
       class="nav-link"
@@ -46,28 +53,44 @@
       role="tab"
       aria-controls="nav-create"
       aria-selected="false"
-    >Create Recipe</button>
+      style="color: var(--white) !important; background-color: #B49E9C !important;"
+      href=""
+    > + Create Recipe</button>
   </div>
 </nav>
-<div class="tab-content" id="nav-tabContent">
+
+<div class="tab-content p-5" id="nav-tabContent">
   <div
     class="tab-pane fade show active"
     id="nav-home"
     role="tabpanel"
     aria-labelledby="nav-home-tab"
-  ><div class="container">
+    style="margin: 0 5% !important; padding: 2% 24px !important;"
+  >
+  
+<div class="container">
   <div class="row">
       {{#each recipes}}
         {{> recipeCard this}}
       {{/each}}
   </div>
-</div></div>
+</div>
+</div>
+
   <div
     class="tab-pane fade"
     id="nav-profile"
     role="tabpanel"
     aria-labelledby="nav-profile-tab"
-  >hello</div>
+  >hell
+  <div class="container">
+  <div class="row">
+      {{#each recipes}}
+        {{> recipeCard this}}
+      {{/each}}
+  </div>
+</div>
+</div>
   <div
     class="tab-pane fade"
     id="nav-contact"
@@ -79,5 +102,9 @@
     id="nav-create"
     role="tabpanel"
     aria-labelledby="nav-create-tab"
-  >new recipe</div>
+  ><div class="container">
+  <div class="row">
+        {{> createRecipe this}}
+  </div>
+</div></div>
 </div>

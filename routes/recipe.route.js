@@ -16,10 +16,10 @@ router.get("/", (req, res) => {
     });
 });
 
-//GET route to show form to create recipe
+/* //GET route to show form to create recipe
 router.get("/create", isLoggedIn, (req, res) =>
   res.render("../views/recipes/create-recipe")
-);
+); */
 
 //POST route to deal with form data
 router.post(

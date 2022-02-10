@@ -1,15 +1,27 @@
-<h2>Login</h2>
-<form action="/auth/login" method="POST">
-   <label> Username
-      <input type="text" name="username">
-   </label>
-   <label> Password
-      <input type="password" name="password">
-   </label>
 
-   <button type="submit">Submit</button>
+<form action="/auth/login" method="POST" class="text-center">
+    <img class="mb-4" src="/images/pot.png" alt="" width="72" height="auto">
+    <h1 class="h3 mb-3 fw-normal">Welcome Back!</h1>
+    <p>Login</p>
+
+<div class="form-signin mb-3 justify-content-center">
+   <div  id="signup">
+      <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Username..." name="username">
+      <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <button class="w-100 btn btn-md" id="btn" type="submit">Sign in</button>
+   </div>
+   
+</div>
+    {{#if errorMessage}}
+    {{errorMessage}}
+  {{/if}}  
+
+    <p class="mt-5 mb-3 text-muted">© by Amanda Rodrigues & Mohammed Chakmakchi - 2022</p>
 </form>
-
-{{#if errorMessage}}
-   {{errorMessage}}
-{{/if}}

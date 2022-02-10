@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -15,14 +16,11 @@
   </head>
 
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 10px !important;" id="navbar">
       <header
-        class="d-flex flex-wrap justify-content-between align-items-center py-2 mb-4 mx-auto border-bottom w-100"
+        class="d-flex flex-wrap justify-content-between align-items-center py-2 mb-5 mx-auto  w-100"
       >
-        <a
-          href="/"
-          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-        >
+        <a href="/">
           <img id="logo" src="/images/logo.png" alt="logo" />
         </a>
         <ul class="nav nav-pills nav-fill">
@@ -31,38 +29,21 @@
               id="nav-link"
               aria-current="page"
             >Recipe Finder</a></li>
-          <li><a href="/recipes/cookbook" id="nav-link">My Cookbook</a></li>
-        </ul>
-        <div class="dropdown text-end">
-          <a
-            href="#"
-            class="d-block link-dark text-decoration-none dropdown-toggle"
-            id="dropdownUser1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >My Cookbook</a>
+
+          <li><a href="/cookbook" id="nav-link">My Cookbook</a></li>
+          
           {{#if userInSession}}
-            <ul
-              class="dropdown-menu text-small"
-              aria-labelledby="dropdownUser1"
-            >
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/auth/logout">Log Out</a></li>
-            </ul>
+              <li class="nav-item"><a id="nav-link" href="/auth/logout">Log Out</a></li>
           {{else}}
-            <ul
-              class="dropdown-menu text-small"
-              aria-labelledby="dropdownUser1"
-            >
-              <li><a class="dropdown-item" href="/auth/login">Login</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
-            </ul>
+              <li class="nav-item"><a id="nav-link" href="/auth/login">Login</a></li>
+              <span> | </span>
+              <li class="nav-item"><a id="nav-link" href="/auth/signup">Sign up</a></li>
           {{/if}}
-        </div>
-      </header>
+        </ul>
+          
+        </header>
     </div>
+    
     {{{body}}}
 
     <script src="/js/script.js"></script>
