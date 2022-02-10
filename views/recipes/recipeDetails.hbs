@@ -1,23 +1,46 @@
-
-    <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <h2>{{recipe.title}}</h2>
-        </div>
-        <div class="form-group">
-            <h4>Ingredients</h4>
-            <p>{{recipe.ingredients}}</p>
-        </div>
-        <div class="form-group">
-            <h4>Instructions</h4>
-            <p>{{recipe.instructions}}</p>
-        </div>
-        <div class="form-group">
-           <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start" alt="{{recipe.title}}">
-        </div>
-
-        <form action="/recipes/{{recipe._id}}/edit" method="get">
-            <button type="submit" class="btn btn-primary">Edit</button>
-        </form>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <h2>{{recipe.title}}</h2>
     </div>
+    <div class="form-group">
+      <h4>Ingredients</h4>
+      <p>{{recipe.ingredients}}</p>
     </div>
+    <div class="form-group">
+      <h4>Instructions</h4>
+      <p>{{recipe.instructions}}</p>
+    </div>
+    <div class="form-group">
+      <img
+        src="{{recipe.imageUrl}}"
+        class="img-fluid rounded-start"
+        alt="{{recipe.title}}"
+      />
+    </div>
+
+    {{#ifNotEqual recipe.creator "CookWhaaatAdmin"}}
+      <form action="/recipes/{{recipe._id}}/edit" method="get">
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
+      <form action="/recipes/{{recipe._id}}/delete" method="post">
+        <button id="deleteButton" type="submit" class="btn btn-primary">delete</button>
+    </form>
+    {{/ifNotEqual}}
+    <form action="/recipes/favorite" method="post">
+      <input class="hidden" value="{{recipe._id}}" name="recipeId" />
+      <button id="favoriteButton" type="submit" class="btn btn-primary">Add
+        Favorite</button>
+    </form>
+  </div>
+</div>
+
+{{! script to change add to favorites button  }}
+<script type="text/javascript">
+  $('#favoriteButton').click(function(){
+    $("#favoriteButton").html("Added to favorites!");
+    $('#favoriteButton').css("background-color", "transparent");
+    $('#favoriteButton').css("color", "black");
+    $('#favoriteButton').css("border-style", "none");
+  })
+</script>
