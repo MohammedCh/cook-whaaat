@@ -22,7 +22,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
   if (!username || !password) {
     return res.status(500).render("auth/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+        "All fields are mandatory. Please provide your username and password.",
     });
   }
 
@@ -96,7 +96,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
   if (username === "" || password === "") {
     res.redirect("/login", {
-      errorMessage: "Please enter both, email and password to login.",
+      errorMessage: "Please enter both username and password to login.",
     });
     return username;
   }

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -16,14 +17,11 @@
   </head>
 
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 10px !important;" id="navbar">
       <header
-        class="d-flex flex-wrap justify-content-between align-items-center py-2 mb-4 mx-auto border-bottom w-100"
+        class="d-flex flex-wrap justify-content-between align-items-center py-2 mb-5 mx-auto  w-100"
       >
-        <a
-          href="/"
-          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-        >
+        <a href="/">
           <img id="logo" src="/images/logo.png" alt="logo" />
         </a>
         <ul class="nav nav-pills nav-fill">
@@ -36,18 +34,17 @@
           <li><a href="/cookbook" id="nav-link">My Cookbook</a></li>
 
           {{#if userInSession}}
-            <li class="nav-item"><a id="nav-link" href="/auth/logout">Log Out</a></li>
+              <li class="nav-item"><a id="nav-link" href="/auth/logout">Log Out</a></li>
           {{else}}
-            <li class="nav-item"><a
-                id="nav-link"
-                href="/auth/login"
-              >Login</a></li>
-            <li class="nav-item"><a id="nav-link" href="/auth/signup">Sign up</a></li>
+              <li class="nav-item"><a id="nav-link" href="/auth/login">Login</a></li>
+              <span> | </span>
+              <li class="nav-item"><a id="nav-link" href="/auth/signup">Sign up</a></li>
           {{/if}}
         </ul>
-
-      </header>
+          
+        </header>
     </div>
+    
     {{{body}}}
 
     <script src="/js/script.js"></script>

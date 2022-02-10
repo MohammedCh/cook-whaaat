@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap");
+@import "bootstrap";
 
 :root {
   --beige: #fdf6de;
@@ -11,20 +12,16 @@
   --orange: #c78411;
 }
 
-body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("../images/background.png");
-  background-size: cover;
+body, html {
   margin: 0;
   padding: 0;
 }
 
-a {
-  color: #00b7ff;
-}
-
-h1 {
-  color: 15px;
+body {
+  font-size: 14px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif ;
+  background-image: url("../images/background.png");
+  background-size: cover;
 }
 
 #logo {
@@ -39,4 +36,41 @@ h1 {
 
 #nav-link:hover {
   color: var(--orange);
+}
+
+#image-pill {
+  width: 40%; 
+  height: 70%; 
+  border-radius: 50px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+#signup {
+  margin: 0 25%;
+}
+
+#create-recipe {
+  text-align: left;
+  margin-left: 10%;
+
+}
+
+@media only screen and (min-width: 768px) {
+  #signup {
+    margin: 0 40%;
+  }
+  #create-recipe {
+  margin-left: 35%;
+}
+}
+
+
+#btn {
+  background-color: #c78411;
+  color: var(--beige);
+}
+
+#btn:hover {
+  background-color: #8b5d0c;
 }

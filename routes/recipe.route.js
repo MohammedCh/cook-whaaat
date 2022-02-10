@@ -20,13 +20,6 @@ router.get("/", (req, res) => {
     });
 });
 
-//GET route to show form to create recipe
-router.get("/create", isLoggedIn, (req, res) =>
-  res.render("../views/recipes/create-recipe", {
-    userInSession: req.session.currentUser,
-  })
-);
-
 router.post("/search", function (req, res) {
   Recipe.find({
     ingredients: { $regex: req.body.searchedString, $options: "i" },

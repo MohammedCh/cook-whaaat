@@ -1,44 +1,47 @@
-<h2>Edit recipe</h2>
+
 <div class="row">
-  <div class="mb-3">
-    <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data">
-      <div class="form-group">
+  <div class="mb-5">
+    <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data" id="create-recipe" >
+     <h2 class="justify-content-center mb-3"{{!-- style="margin-left: 15%;" --}}>Edit Recipe</h2> 
+    <div class="form-group mb-3">
         <label class="form-label">Title:
-          <input type="text" name="title" class="form-control" value="{{recipe.title}}" />
+          <input for="exampleFormControlInput1" style="width: 200% !important;" type="text" name="title" class="form-control" value="{{recipe.title}}" />
         </label>
       </div>
       <div class="form-group">
         <label class="form-label">ingredients:
-          <textarea name="ingredients" cols="30" rows="4" class="form-control">
+          <textarea name="ingredients" cols="30" rows="10" class="form-control mb-3" style="width: 137% !important;">
           {{recipe.ingredients}}
           </textarea>
         </label>
       </div>
       <div class="form-group">
         <label class="form-label">Instructions:
-          <textarea name="instructions" cols="30" rows="4" class="form-control">
+          <textarea name="instructions" cols="30" rows="10" class="form-control mb-3" style="width: 137% !important;">
           {{recipe.instructions}}
           </textarea>
         </label>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Image:
+      <div class="form-group mb-3">
+        <label for="formFile" class="form-label">Image:
           <input
             type="file"
             name="recipe-cover-image"
-            class="form-control-file"
+            class="form-control mb-3"
+            id="formFile"
+            style="width: 121% !important;"
           />
         </label>
       </div>
       <div>
-        <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start" alt="{{recipe.title}}">
+        <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start mb-3" alt="{{recipe.title}}">
       </div>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="submit" id="btn" class="btn mb-3">Save Changes</button>
 
     </form>
-    <form action="/cookbook">
-        <button type="submit" class="btn btn-secondary">Cancel</button>
+    <form id="create-recipe" action="/cookbook">
+        <button type="submit" class="btn {{!-- btn-secondary --}} mb-3">Cancel</button>
     </form>
   </div>
 </div>
