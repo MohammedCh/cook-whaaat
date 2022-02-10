@@ -4,7 +4,7 @@
     <h2 >{{ userInSession.username }}'s Cookbook</h2>
     <p class="mb-4">All your recipes in one place!</p>
   </div>
-    
+
 {{else}}
     <p>Still no logged in user, sorry!</p>
 {{/if}}
@@ -32,7 +32,7 @@
       aria-controls="nav-profile"
       aria-selected="false"
       style="color: var(--white) !important; background-color: #C2B097 !important;"
-    >Favorites</button> 
+    >Favorites</button>
     <button
       class="nav-link"
       id="nav-contact-tab"
@@ -67,44 +67,67 @@
     aria-labelledby="nav-home-tab"
     style="margin: 0 5% !important; padding: 2% 24px !important;"
   >
-  
-<div class="container">
-  <div class="row">
-      {{#each recipes}}
-        {{> recipeCard this}}
-      {{/each}}
+
+    <div class="container">
+      <div class="row">
+          {{#each recipes}}
+            {{> recipeCard this}}
+          {{/each}}
+      </div>
+    </div>
   </div>
-</div>
-</div>
 
   <div
     class="tab-pane fade"
     id="nav-profile"
     role="tabpanel"
-    aria-labelledby="nav-profile-tab"
-  >hell
-  <div class="container">
-  <div class="row">
-      {{#each recipes}}
-        {{> recipeCard this}}
-      {{/each}}
+    aria-labelledby="nav-profile-tab">
+      <div class="container">
+        <div class="row">
+          {{#each recipes}}
+            {{#ifContains ../userInSession.favoriteRecipes this._id }}
+              {{> recipeCard this}}
+            {{/ifContains}}
+          {{/each}}
+        </div>
+      </div>
   </div>
-</div>
-</div>
+
   <div
     class="tab-pane fade"
     id="nav-contact"
     role="tabpanel"
     aria-labelledby="nav-contact-tab"
-  >bye</div>
+  >
+    <div class="container">
+      <div class="row">
+        {{#each recipes}}
+          {{#ifEqual this.creator ../userInSession._id }}
+            {{> recipeCard this}}
+          {{/ifEqual}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
   <div
     class="tab-pane fade"
     id="nav-create"
     role="tabpanel"
     aria-labelledby="nav-create-tab"
-  ><div class="container">
-  <div class="row">
+  >
+    <div class="container">
+      <div class="row">
         {{> createRecipe this}}
+      </div>
+    </div>
   </div>
-</div></div>
 </div>
+
+{{! script to change add to favorites icon button  }}
+<script type="text/javascript">
+  $('.material-icons').click(function(){
+    $('#'+this.id).addClass("favoriteIconToggled");
+  })
+</script>
+
+{{!-- console.log(this.id) --}}
