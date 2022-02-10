@@ -4,7 +4,7 @@ const Recipe = require("../models/Recipe.model");
 const User = require("../models/User.model");
 const fileUploader = require("../config/cloudinary.config");
 const isLoggedIn = require("../middleware/isLoggedIn");
-const { reset } = require("nodemon");
+const arrayConverter = require("../middleware/arrayConverter").arrayConverter;
 
 //show list of all recipes
 router.get("/", (req, res) => {
@@ -94,8 +94,9 @@ router.get("/:recipeId", (req, res, next) => {
 
   Recipe.findById(recipeId)
     .then((recipeDetails) => {
+      //console.log(arrayConverter(recipeDetails))
       res.render("../views/recipes/recipeDetails", {
-        recipe: recipeDetails,
+        recipe: arrayConverter(recipeDetails),
         userInSession: req.session.currentUser,
       });
     })
@@ -158,4 +159,5 @@ router.post("/:recipeId/delete", isLoggedIn, (req, res) => {
       console.error("Error when updating recipe information: ", e);
     });
 });
+
 module.exports = router;

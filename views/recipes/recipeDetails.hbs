@@ -20,7 +20,7 @@
         <button id="favoriteButton" type="submit" class="btn btn-primary">Add
           Favorite</button>
       </form>
-        
+
     </div>
 
 
@@ -30,10 +30,13 @@
             <div class="form-group mb-5">
                 <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipe.title}}">
             </div>
-            
+
             <div class="form-group mb-5">
                 <h4 class="apple">Ingredients</h4>
-                <p>{{recipe.ingredients}}</p>
+                <ul>{{#each recipe.ingredients}}
+                      <li>{{this}}</li>
+                    {{/each}}
+                </ul>
             </div>
 
         </div>
@@ -44,8 +47,11 @@
 
                 <h4 class="apple">Instructions</h4>
 
-                <p>{{recipe.instructions}}</p>
-
+                {{!-- <p>{{recipe.instructions}}</p> --}}
+                <ol>{{#each recipe.instructions}}
+                      <li>{{this}}</li>
+                    {{/each}}
+                </ol>
             </div>
         </div>
     </div>

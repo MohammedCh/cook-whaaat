@@ -111,3 +111,7 @@ a {
 .favoriteIconToggled {
   color: yellow;
 }
+
+.center-text{
+  margin: 2% 35%;
+}

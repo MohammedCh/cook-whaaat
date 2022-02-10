@@ -32,7 +32,7 @@
       aria-controls="nav-profile"
       aria-selected="false"
       style="color: var(--white) !important; background-color: #C2B097 !important;"
-    >Favorites</button>
+    >My Favorites</button>
     <button
       class="nav-link"
       id="nav-contact-tab"
@@ -67,12 +67,12 @@
     aria-labelledby="nav-home-tab"
     style="margin: 0 5% !important; padding: 2% 24px !important;"
   >
-
     <div class="container">
       <div class="row">
-          {{#each recipes}}
-            {{> recipeCard this}}
-          {{/each}}
+        <h4 class="center-text">All My Recipes</h4>
+        {{#each recipes}}
+          {{> recipeCard this}}
+        {{/each}}
       </div>
     </div>
   </div>
@@ -84,6 +84,7 @@
     aria-labelledby="nav-profile-tab">
       <div class="container">
         <div class="row">
+          <h4 class="center-text">My Favorites</h4>
           {{#each recipes}}
             {{#ifContains ../userInSession.favoriteRecipes this._id }}
               {{> recipeCard this}}
@@ -101,6 +102,7 @@
   >
     <div class="container">
       <div class="row">
+        <h4 class="center-text">My Recipes</h4>
         {{#each recipes}}
           {{#ifEqual this.creator ../userInSession._id }}
             {{> recipeCard this}}

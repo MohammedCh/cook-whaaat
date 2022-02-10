@@ -46,8 +46,10 @@ hbs.handlebars.registerHelper("ifEqual", function (v1, v2, options) {
 
 // Handlebars helper that checks for if v1 is equal to v2
 hbs.handlebars.registerHelper("ifContains", function (array, v2, options) {
-  if (array.indexOf(v2.toString()) >= 0) {
-    return options.fn(this);
+  if (v2) {
+    if (array.indexOf(v2.toString()) >= 0) {
+      return options.fn(this);
+    }
   }
   return options.inverse(this);
 });
