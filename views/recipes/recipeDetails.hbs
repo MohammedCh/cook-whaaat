@@ -3,22 +3,24 @@
     <div class="mb-5 row  justify-content-left">
 
         <div class="col-7">
-            <h2 class="apple">{{recipe.title}}</h2>
+            <h2 class="apple">{{recipesWithCurrentUser.title}}</h2>
         </div>
 
-    {{#ifNotEqual recipe.creator "CookWhaaatAdmin"}}
-        <form action="/recipes/{{recipe._id}}/edit" method="get" class="col-4 right px-2">
+    {{#ifEqual recipesWithCurrentUser.creator recipesWithCurrentUser.userId}}
+        <form action="/recipes/{{recipesWithCurrentUser._id}}/edit" method="get" class="col-4 right px-2">
             <button type="submit" class="btn btn-light" style="color: var(--orange) !important;">
                <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
         </form>
-      <form action="/recipes/{{recipe._id}}/delete" method="post">
+      <form action="/recipes/{{recipesWithCurrentUser._id}}/delete" method="post">
         <button id="deleteButton" type="submit" class="btn btn-primary">delete</button>
       </form>
-    {{/ifNotEqual}}
+    {{/ifEqual}}
+
       <form action="/recipes/favorite" method="post">
-        <input class="hidden" value="{{recipe._id}}" name="recipeId" />
-        <button id="favoriteButton" type="submit" class="btn btn-primary">Add
-          Favorite</button>
+        <input class="hidden" value="{{recipesWithCurrentUser._id}}" name="recipeId" />
+        <button id="favoriteButton" type="submit" class="btn btn-primary {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}favoriteButtonToggled{{/ifContains}}">
+        <span id="toggleHideText" {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}style="display:none"{{/ifContains}}>Add to Favorites</span>
+        {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}Remove from favorites{{/ifContains}}</button>
       </form>
 
     </div>
@@ -28,12 +30,12 @@
         <div class="col-md-5">
 
             <div class="form-group mb-5">
-                <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipe.title}}">
+                <img src="{{recipesWithCurrentUser.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipesWithCurrentUser.title}}">
             </div>
 
             <div class="form-group mb-5">
                 <h4 class="apple">Ingredients</h4>
-                <ul>{{#each recipe.ingredients}}
+                <ul>{{#each recipesWithCurrentUser.ingredients}}
                       <li>{{this}}</li>
                     {{/each}}
                 </ul>
@@ -47,8 +49,8 @@
 
                 <h4 class="apple">Instructions</h4>
 
-                {{!-- <p>{{recipe.instructions}}</p> --}}
-                <ol>{{#each recipe.instructions}}
+                {{!-- <p>{{recipesWithCurrentUser.instructions}}</p> --}}
+                <ol>{{#each recipesWithCurrentUser.instructions}}
                       <li>{{this}}</li>
                     {{/each}}
                 </ol>

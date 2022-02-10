@@ -13,19 +13,24 @@
         <h5 class="card-title">{{this.title}}</h5>
       </div>
 
-      {{! Only show edit button if creator isn't cookwhaatadmin }}
-      {{#ifNotEqual this.creator "CookWhaaatAdmin"}}
+      {{! Only show edit button if creator isn't current logged in user }}
+      {{#ifEqual this.creator this.userId}}
         <button class="btn btn-md btn-secondary" ><a style="color: var(--beige);" href="/recipes/{{this._id}}/edit">Edit</a></button>
         <a href="/recipes/{{this._id}}/delete">Delete</a>
-      {{/ifNotEqual}}
+      {{/ifEqual}}
       <button class="btn btn-md" id="btn"><a href="/recipes/{{this._id}}" style="color: var(--beige);">See Recipe</a></button>
-      <form action="/recipes/favorite" method="post">
+      {{!-- <form action="/recipes/favorite" method="post">
         <input class="hidden" value="{{this._id}}" name="recipeId" />
         <button type="submit" class="btn"><i
-            class="material-icons"
+            class="material-icons {{#ifContains this.favoriteRecipes this._id}}favoriteIconToggled{{/ifContains}}"
             id="{{this._id}}"
           >star</i></button>
-      </form>
+      </form> --}}
+
+      <i class="material-icons"
+        {{#ifContains this.favoriteRecipes this._id}}style="color: yellow"{{/ifContains}}
+        id="{{this._id}}">star
+      </i>
     </div>
   </div>
 </div>

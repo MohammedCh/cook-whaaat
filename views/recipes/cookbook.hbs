@@ -70,7 +70,7 @@
     <div class="container">
       <div class="row">
         <h4 class="center-text">All My Recipes</h4>
-        {{#each recipes}}
+        {{#each recipesWithCurrentUser}}
           {{> recipeCard this}}
         {{/each}}
       </div>
@@ -85,8 +85,8 @@
       <div class="container">
         <div class="row">
           <h4 class="center-text">My Favorites</h4>
-          {{#each recipes}}
-            {{#ifContains ../userInSession.favoriteRecipes this._id }}
+          {{#each recipesWithCurrentUser}}
+            {{#ifContains this.favoriteRecipes this._id }}
               {{> recipeCard this}}
             {{/ifContains}}
           {{/each}}
@@ -103,8 +103,8 @@
     <div class="container">
       <div class="row">
         <h4 class="center-text">My Recipes</h4>
-        {{#each recipes}}
-          {{#ifEqual this.creator ../userInSession._id }}
+        {{#each recipesWithCurrentUser}}
+          {{#ifEqual this.creator this.userId }}
             {{> recipeCard this}}
           {{/ifEqual}}
         {{/each}}
