@@ -1,36 +1,42 @@
-<h2>Create a recipe</h2>
+
 <div class="row">
-  <div class="col-md-6">
-    <form action="/recipes/create" method="post" enctype="multipart/form-data">
-      {{! !!! }}
-      <div class="form-group">
-        <label>title:
-          <input type="text" name="title" class="form-control" />
+  <div class="mb-5">
+    <form action="/recipes/create" method="post" enctype="multipart/form-data" class="create-recipe">
+      <h4 class="justify-content-center mb-3">Create Recipe</h4> 
+      <div class="form-group mb-3">
+        <label class="form-label">Title:
+          <textarea name="title"  cols="84" rows="1" class="form-control"></textarea>        
         </label>
       </div>
-      <div class="form-group">
-        <label>Ingredients:
-          <textarea name="ingredients" cols="30" rows="4" class="form-control">
-          </textarea>
+      <div class="form-group mb-3">
+        <label class="form-label">Ingredients:
+          <textarea name="ingredients" cols="84" rows="10" class="form-control"></textarea>
         </label>
       </div>
-      <div class="form-group">
-        <label>Instructions:
-          <textarea name="instructions" cols="30" rows="4" class="form-control">
-          </textarea>
+      <div class="form-group mb-3">
+        <label class="form-label">Instructions:
+          <textarea name="instructions" cols="84" rows="10" class="form-control"></textarea>
         </label>
       </div>
-      <div class="form-group">
-        <label>Image:
+
+      <div class="form-group mb-3">
+        <label for="formFile" class="form-label">Image:
           <input
             type="file"
             name="recipe-cover-image"
-            class="form-control-file"
+            class="form-control mb-3"
+            id="formFile"
           />
         </label>
       </div>
 
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button  type="submit" id="btn" class="btn mb-3">Create</button>
     </form>
+
+    <form class="create-recipe" action="/cookbook">
+        <button type="submit" class="btn mb-3">Cancel</button>
+    </form>
+
+
   </div>
 </div>

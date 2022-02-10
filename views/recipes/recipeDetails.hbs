@@ -1,23 +1,42 @@
+<div class="p-5 ms-5">
+
+    <div class="mb-5 row  justify-content-left">
+
+        <div class="col-7">
+            <h2 class="apple">{{recipe.title}}</h2>
+        </div>
+        
+        <form action="/recipes/{{recipe._id}}/edit" method="get" class="col-4 right px-2">
+            <button type="submit" class="btn btn-light" style="color: var(--orange) !important;">
+               <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
+        </form>
+
+    </div>
+
 
     <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <h2>{{recipe.title}}</h2>
-        </div>
-        <div class="form-group">
-            <h4>Ingredients</h4>
-            <p>{{recipe.ingredients}}</p>
-        </div>
-        <div class="form-group">
-            <h4>Instructions</h4>
-            <p>{{recipe.instructions}}</p>
-        </div>
-        <div class="form-group">
-           <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start" alt="{{recipe.title}}">
+        <div class="col-md-5">
+
+            <div class="form-group mb-5">
+                <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipe.title}}">
+            </div>
+            
+            <div class="form-group mb-5">
+                <h4 class="apple">Ingredients</h4>
+                <p>{{recipe.ingredients}}</p>
+            </div>
+
         </div>
 
-        <form action="/recipes/{{recipe._id}}/edit" method="get">
-            <button type="submit" class="btn btn-primary">Edit</button>
-        </form>
+        <div class="col-lg-6">
+
+            <div class="form-group mb-5">
+
+                <h4 class="apple">Instructions</h4>
+
+                <p>{{recipe.instructions}}</p>
+
+            </div>
+        </div>
     </div>
-    </div>
+</div>

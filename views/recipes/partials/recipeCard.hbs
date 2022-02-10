@@ -1,18 +1,19 @@
-<div class="card mx-3 px-2" style="max-width: 140px; background-color: red;">
-  <div class="row g-0">
-    <div class="col-md-4">
+<div class="card mx-2 mb-4 p-3 " style="max-width: 540px;">
+  <div class="row">
+    <div class="col-md-3" >
       <img
         src="{{this.imageUrl}}"
-        class="img-fluid rounded-start"
+        class="img-fluid"
         alt="{{this.title}}"
+        style="height: 100% !important; object-fit: cover !important;"
       />
     </div>
-    <div class="col-md-8">
+    <div class="col-lg left">
       <div class="card-body">
         <h5 class="card-title">{{this.title}}</h5>
       </div>
-      <a href="/recipes/{{this._id}}/edit">Edit</a>
-      <a href="/recipes/{{this._id}}">See Recipe</a>
+      <button class="btn btn-md btn-secondary" ><a style="color: var(--beige);"href="/recipes/{{this._id}}/edit">Edit</a></button>
+      <button class="btn btn-md" id="btn"><a href="/recipes/{{this._id}}" style="color: var(--beige);">See Recipe</a></button>
     </div>
   </div>
 </div>
