@@ -1,5 +1,6 @@
 <div class="card mx-2 mb-4 p-3 " style="max-width: 540px;">
   <div class="row">
+
     <div class="col-md-3" >
       <img
         src="{{this.imageUrl}}"
@@ -8,24 +9,36 @@
         style="height: 100% !important; object-fit: cover !important;"
       />
     </div>
-    <div class="col-lg left">
-      <div class="card-body">
-        <h5 class="card-title">{{this.title}}</h5>
-      </div>
 
-      {{! Only show edit button if creator isn't cookwhaatadmin }}
-      {{#ifNotEqual this.creator "CookWhaaatAdmin"}}
-        <button class="btn btn-md btn-secondary" ><a style="color: var(--beige);" href="/recipes/{{this._id}}/edit">Edit</a></button>
-        <a href="/recipes/{{this._id}}/delete">Delete</a>
-      {{/ifNotEqual}}
-      <button class="btn btn-md" id="btn"><a href="/recipes/{{this._id}}" style="color: var(--beige);">See Recipe</a></button>
-      <form action="/recipes/favorite" method="post">
-        <input class="hidden" value="{{this._id}}" name="recipeId" />
-        <button type="submit" class="btn"><i
-            class="material-icons"
-            id="{{this._id}}"
-          >star</i></button>
-      </form>
+    <div class="col-lg left">
+      <div class="card-body"> {{!-- card body --}}
+        <h5 class="card-title">{{this.title}}</h5>
+
+        <div class="card-btns">{{!--  card buttons --}}
+          
+          <form action="/recipes/favorite" method="post">
+            <input class="hidden" value="{{this._id}}" name="recipeId" />
+              <button type="submit" class="btn">
+                <i
+                  class="material-icons"
+                  style="color: #B49E9C;"
+                  id="{{this._id}}"
+                >favorite</i>
+              </button>
+          </form>
+
+          <button class="btn btn-md px-3 mx-2 " id="btn"><a href="/recipes/{{this._id}}" style="color: var(--beige);">See Recipe</a></button>
+          {{! Only show edit button if creator isn't cookwhaatadmin }}
+          {{#ifNotEqual this.creator "CookWhaaatAdmin"}}
+            <button class="btn btn-md btn-secondary px-3 mx-2" ><a style="color: white;" href="/recipes/{{this._id}}/edit">Edit</a></button>
+            <button  class="btn-md btn-light btn"><a href="/recipes/{{this._id}}/delete" style="color: var(--orange);">Delete</a></button>
+          {{/ifNotEqual}}
+          
+        
+        </div>
+
+      </div>
     </div>
+
   </div>
 </div>

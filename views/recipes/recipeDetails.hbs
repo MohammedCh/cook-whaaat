@@ -1,31 +1,35 @@
 <div class="p-5 ms-5">
 
-    <div class="mb-5 row  justify-content-left">
+    <div class="mb-5 row nowrap justify-content-left">
 
-        <div class="col-7">
+        <div class="col-10">
             <h2 class="apple">{{recipe.title}}</h2>
         </div>
 
-    {{#ifNotEqual recipe.creator "CookWhaaatAdmin"}}
-        <form action="/recipes/{{recipe._id}}/edit" method="get" class="col-4 right px-2">
-            <button type="submit" class="btn btn-light" style="color: var(--orange) !important;">
-               <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
-        </form>
-      <form action="/recipes/{{recipe._id}}/delete" method="post">
-        <button id="deleteButton" type="submit" class="btn btn-primary">delete</button>
-      </form>
-    {{/ifNotEqual}}
-      <form action="/recipes/favorite" method="post">
-        <input class="hidden" value="{{recipe._id}}" name="recipeId" />
-        <button id="favoriteButton" type="submit" class="btn btn-primary">Add
-          Favorite</button>
-      </form>
+        <div class="row">
+          {{#ifNotEqual recipe.creator "CookWhaaatAdmin"}}
+              <form action="/recipes/{{recipe._id}}/edit" method="get" class="short p-2">
+                  <button type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">
+                    <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
+              </form>
+
+            <form action="/recipes/{{recipe._id}}/delete" method="post" class="xshort p-2">
+              <button id="deleteButton" type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">Delete</button>
+            </form>
+
+          {{/ifNotEqual}}
+
+            <form action="/recipes/favorite" method="post" class="long p-2">
+              <input class="hidden" value="{{recipe._id}}" name="recipeId" />
+              <button id="favoriteButton" type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">Add
+                Favorite</button>
+            </form>
+        </div>
 
     </div>
 
-
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
 
             <div class="form-group mb-5">
                 <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipe.title}}">
@@ -41,7 +45,7 @@
 
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-7">
 
             <div class="form-group mb-5">
 
