@@ -3,23 +3,38 @@ const router = express.Router();
 const Recipe = require("../models/Recipe.model");
 const fileUploader = require("../config/cloudinary.config");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const { reset } = require("nodemon");
 
 //show list of all recipes
 router.get("/", (req, res) => {
   Recipe.find()
     .then((allRecipes) => {
       //console.log("Retrieved recipes from DB:", allRecipes);
-      res.render("../views/index", { recipes: allRecipes });
+      res.render("../views/index", {
+        userInSession: req.session.currentUser,
+        recipes: allRecipes,
+      });
     })
     .catch((err) => {
       console.log("Something went wrong while getting recipes from DB =>", err);
     });
 });
 
-/* //GET route to show form to create recipe
-router.get("/create", isLoggedIn, (req, res) =>
-  res.render("../views/recipes/create-recipe")
-); */
+router.post("/search", function (req, res) {
+  Recipe.find({
+    ingredients: { $regex: req.body.searchedString, $options: "i" },
+  })
+    .then((allRecipes) => {
+      //console.log("Retrieved recipes from DB:", allRecipes);
+      res.render("../views/recipes/partials/searchResults", {
+        layout: false,
+        recipes: allRecipes,
+      });
+    })
+    .catch((err) => {
+      console.log("Something went wrong while getting recipes from DB =>", err);
+    });
+});
 
 //POST route to deal with form data
 router.post(
@@ -51,7 +66,10 @@ router.get("/:recipeId", (req, res, next) => {
 
   Recipe.findById(recipeId)
     .then((recipeDetails) => {
-      res.render("../views/recipes/recipeDetails", { recipe: recipeDetails });
+      res.render("../views/recipes/recipeDetails", {
+        recipe: recipeDetails,
+        userInSession: req.session.currentUser,
+      });
     })
     .catch((err) => {
       console.log("Error when retrieving information about recipe", err);
@@ -65,7 +83,10 @@ router.get("/:recipeId/edit", isLoggedIn, (req, res, next) => {
 
   Recipe.findById(recipeId)
     .then((recipeDetails) => {
-      res.render("../views/recipes/edit-recipe", { recipe: recipeDetails });
+      res.render("../views/recipes/edit-recipe", {
+        recipe: recipeDetails,
+        userInSession: req.session.currentUser,
+      });
     })
     .catch((err) =>
       console.log("Error when retrieving information about recipe", err)

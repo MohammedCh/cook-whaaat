@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -31,7 +32,7 @@
             >Recipe Finder</a></li>
 
           <li><a href="/cookbook" id="nav-link">My Cookbook</a></li>
-          
+
           {{#if userInSession}}
               <li class="nav-item"><a id="nav-link" href="/auth/logout">Log Out</a></li>
           {{else}}

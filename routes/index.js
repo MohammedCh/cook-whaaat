@@ -11,7 +11,7 @@ router.use("/auth", authRoutes);
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index");
+  res.redirect("/recipes");
 });
 
 module.exports = router;
