@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Recipe = require("../models/Recipe.model");
+const User = require("../models/User.model");
 const fileUploader = require("../config/cloudinary.config");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const { reset } = require("nodemon");
@@ -50,14 +51,41 @@ router.post(
       imageUrl: req.file.path,
       creator: req.session.currentUser,
     })
-      .then((newRecipeFromDB) => {
-        res.redirect("/recipes");
+      .then((createdRecipe) => {
+        return User.findByIdAndUpdate(
+          req.session.currentUser._id,
+          { $addToSet: { createdRecipes: createdRecipe._id } },
+          {
+            new: true,
+          }
+        );
+      })
+      .then((updatedUser) => {
+        res.redirect("/cookbook");
       })
       .catch((error) =>
         console.log(`Error while creating a new recipe: ${error}`)
       );
   }
 );
+
+//POST route to add recipe to favorites
+router.post("/favorite", isLoggedIn, (req, res) => {
+  User.findByIdAndUpdate(
+    req.session.currentUser._id,
+    { $addToSet: { favoriteRecipes: req.body.recipeId } },
+    {
+      new: true,
+    }
+  )
+    .then((updatedUser) => {
+      //console.log(updatedUser);
+      res.status(204).send(); //line does nothing when action done - no redirect or rendering
+    })
+    .catch((error) =>
+      console.log(`Error while creating a new recipe: ${error}`)
+    );
+});
 
 //GET route to render detail view of a specific recipe
 router.get("/:recipeId", (req, res, next) => {
@@ -120,4 +148,14 @@ router.post(
   }
 );
 
+router.post("/:recipeId/delete", isLoggedIn, (req, res) => {
+  const { recipeId } = req.params;
+  Recipe.findByIdAndRemove(recipeId)
+    .then((recipe) => {
+      res.redirect("/cookbook");
+    })
+    .catch((e) => {
+      console.error("Error when updating recipe information: ", e);
+    });
+});
 module.exports = router;

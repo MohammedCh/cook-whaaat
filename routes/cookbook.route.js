@@ -17,9 +17,4 @@ router.get("/", isLoggedIn, (req, res) => {
     });
 });
 
-//GET to render cookbook page
-router.get("/", isLoggedIn, (req, res) => {
-    return res.render("../views/recipes/cookbook", { userInSession: req.session.currentUser });
-});
-
 module.exports = router;

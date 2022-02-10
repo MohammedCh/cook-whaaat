@@ -12,8 +12,20 @@
       <div class="card-body">
         <h5 class="card-title">{{this.title}}</h5>
       </div>
-      <button class="btn btn-md btn-secondary" ><a style="color: var(--beige);"href="/recipes/{{this._id}}/edit">Edit</a></button>
+
+      {{! Only show edit button if creator isn't cookwhaatadmin }}
+      {{#ifNotEqual this.creator "CookWhaaatAdmin"}}
+        <button class="btn btn-md btn-secondary" ><a style="color: var(--beige);"href="/recipes/{{this._id}}/edit">Edit</a></button>
+        <a href="/recipes/{{this._id}}/delete">Delete</a>
+      {{/ifNotEqual}}
       <button class="btn btn-md" id="btn"><a href="/recipes/{{this._id}}" style="color: var(--beige);">See Recipe</a></button>
+      <form action="/recipes/favorite" method="post">
+        <input class="hidden" value="{{this._id}}" name="recipeId" />
+        <button type="submit" class="btn"><i
+            class="material-icons"
+            id="{{this._id}}"
+          >star</i></button>
+      </form>
     </div>
   </div>
 </div>

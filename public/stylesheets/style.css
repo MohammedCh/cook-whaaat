@@ -12,14 +12,15 @@
   --orange: #c78411;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
 }
 
 body {
   font-size: 14px;
-  font-family:Verdana, Geneva, Tahoma, sans-serif ;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-image: url("../images/background.png");
   background-size: cover;
 }
@@ -67,7 +68,6 @@ a {
 .create-recipe {
   text-align: left;
   margin-left: 10%;
-
 }
 
 @media only screen and (min-width: 768px) {
@@ -76,7 +76,7 @@ a {
   }
   .create-recipe {
   margin-left: 20%;
-}
+  }
 }
 
 #btn {
@@ -102,4 +102,11 @@ a {
 
 .someInput {
   flex: 0 1 100px;
+  
+.hidden {
+  display: none;
+}
+
+.favoriteIconToggled {
+  color: yellow;
 }
