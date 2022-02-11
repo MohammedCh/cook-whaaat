@@ -38,7 +38,7 @@ hbs.handlebars.registerHelper("ifEqual", function (value1, value2, options) {
 
 // Handlebars helper that checks for if v1 is equal to v2
 hbs.handlebars.registerHelper("ifContains", function (array, value, options) {
-  if (value) {
+  if (value && array) {
     if (array.indexOf(value.toString()) >= 0) {
       return options.fn(this);
     }
