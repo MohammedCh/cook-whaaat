@@ -20,7 +20,7 @@
           {{/ifEqual}}
 
             <form action="/recipes/favorite" method="post" class="long p-2">
-              <input class="hidden" value="{{recipe._id}}" name="recipeId" />
+              <input class="hidden" value="{{recipesWithCurrentUser._id}}" name="recipeId" />
               <button id="favoriteButton" type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">Add
                 Favorite</button>
             </form>
