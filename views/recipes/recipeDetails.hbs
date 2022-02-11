@@ -1,33 +1,41 @@
 <div class="p-5 ms-5">
 
-    <div class="mb-5 row  justify-content-left">
+    <div class="mb-5 row nowrap justify-content-left">
 
-        <div class="col-7">
+        <div class="col-10">
             <h2 class="apple">{{recipesWithCurrentUser.title}}</h2>
         </div>
 
-    {{#ifEqual recipesWithCurrentUser.creator recipesWithCurrentUser.userId}}
-        <form action="/recipes/{{recipesWithCurrentUser._id}}/edit" method="get" class="col-4 right px-2">
-            <button type="submit" class="btn btn-light" style="color: var(--orange) !important;">
-               <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
-        </form>
-      <form action="/recipes/{{recipesWithCurrentUser._id}}/delete" method="post">
-        <button id="deleteButton" type="submit" class="btn btn-primary">delete</button>
-      </form>
-    {{/ifEqual}}
+        <div class="row">
+         {{#ifEqual recipesWithCurrentUser.creator recipesWithCurrentUser.userId}}
+              <form action="/recipes/{{recipesWithCurrentUser._id}}/edit" method="get" class="short p-2">
+                  <button type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">
+                    <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
+              </form>
 
+            <form action="/recipes/{{recipesWithCurrentUser._id}}/delete" method="post" class="xshort p-2">
+              <button id="deleteButton" type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">Delete</button>
+            </form>
+
+          {{/ifEqual}}
+
+            <form action="/recipes/favorite" method="post" class="long p-2">
+              <input class="hidden" value="{{recipe._id}}" name="recipeId" />
+              <button id="favoriteButton" type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">Add
+                Favorite</button>
+            </form>
+        </div>
+{{!--
       <form action="/recipes/favorite" method="post">
         <input class="hidden" value="{{recipesWithCurrentUser._id}}" name="recipeId" />
         <button id="favoriteButton" type="submit" class="btn btn-primary {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}favoriteButtonToggled{{/ifContains}}">
         <span id="toggleHideText" {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}style="display:none"{{/ifContains}}>Add to Favorites</span>
         {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}Remove from favorites{{/ifContains}}</button>
-      </form>
-
+      </form>--}}
     </div>
 
-
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
 
             <div class="form-group mb-5">
                 <img src="{{recipesWithCurrentUser.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipesWithCurrentUser.title}}">
@@ -43,7 +51,7 @@
 
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-7">
 
             <div class="form-group mb-5">
 
