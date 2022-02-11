@@ -1,4 +1,4 @@
-# ANGRY MOLES! (Ironhack-project-1)
+# COOK WHAAAT (Ironhack-project-2)
 
 <img width="25%" src="public/images/logo.png">
 Have you ever looked at your fridge and thought:  ‘I only have potatoes! What now?’. We’re here to save the day! With our app you can search for recipes containing the ingredients you have in your fridge. You also get a personalised cookbook to create and save your favorite recipes.
