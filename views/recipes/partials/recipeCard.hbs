@@ -45,7 +45,9 @@
           {{! Only show edit button if creator isn't cookwhaatadmin }}
           {{#ifEqual this.creator this.userId}}
             <button class="btn btn-md btn-secondary px-3 mx-2" ><a style="color: white;" href="/recipes/{{this._id}}/edit">Edit</a></button>
-            <button  class="btn-md btn-light btn"><a href="/recipes/{{this._id}}/delete" style="color: var(--orange);">Delete</a></button>
+            <form action="/recipes/{{this._id}}/delete" method="POST" >
+              <button class="btn-md btn-light btn" style="color: var(--orange);">Delete</button>
+            </form>
           {{/ifEqual}}
 
 
