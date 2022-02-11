@@ -9,7 +9,7 @@
         <div class="row">
          {{#ifEqual recipesWithCurrentUser.creator recipesWithCurrentUser.userId}}
               <form action="/recipes/{{recipesWithCurrentUser._id}}/edit" method="get" class="short p-2">
-                  <button type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">
+                  <button type="submit" class="btn btn-light px-2" style="color: var(--orange) !important;">
                     <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
               </form>
 
