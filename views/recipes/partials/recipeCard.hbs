@@ -15,7 +15,7 @@
         <h5 class="card-title">{{this.title}}</h5>
 
         <div class="card-btns">{{!--  card buttons --}}
-          {{!-- 
+          {{!--
           <form action="/recipes/favorite" method="post">
             <input class="hidden" value="{{this._id}}" name="recipeId" />
               <button type="submit" class="btn">
@@ -34,11 +34,12 @@
           >star</i></button>
       </form> --}}
 
-      <i class="material-icons"
-        {{#ifContains this.favoriteRecipes this._id}}style="color: yellow"{{/ifContains}}
-        id="{{this._id}}">star
-      </i>
-  
+      <button type="submit" class="btn"></button>
+        <i class="material-icons"
+          {{#ifContains this.favoriteRecipes this._id}}style="color: rgb(227, 207, 26)"{{/ifContains}}
+          id="{{this._id}}">favorite
+        </i>
+      </button>
 
           <button class="btn btn-md px-3 mx-2 " id="btn"><a href="/recipes/{{this._id}}" style="color: var(--beige);">See Recipe</a></button>
           {{! Only show edit button if creator isn't cookwhaatadmin }}
@@ -46,8 +47,8 @@
             <button class="btn btn-md btn-secondary px-3 mx-2" ><a style="color: white;" href="/recipes/{{this._id}}/edit">Edit</a></button>
             <button  class="btn-md btn-light btn"><a href="/recipes/{{this._id}}/delete" style="color: var(--orange);">Delete</a></button>
           {{/ifEqual}}
-                
-        
+
+
         </div>
 
       </div>

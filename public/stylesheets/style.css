@@ -108,12 +108,9 @@ a {
   display: none;
 }
 
-.favoriteIconToggled {
-  color: yellow;
-}
-
-.center-text {
-  margin: 2% 35%;
+.material-icons {
+  color: #B49E9C;
+  cursor: pointer;
 }
 
 .card-btns {

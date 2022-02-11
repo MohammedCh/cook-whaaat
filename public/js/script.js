@@ -23,12 +23,13 @@ $("#search-button").click(function () {
 
 // script to change add to favorites icon button
 $(".material-icons").click(function () {
-  if (this.style.color === "yellow") {
+  console.log(this.style.color)
+  if (this.style.color === "rgb(227, 207, 26)") {
     $.post("recipes/favoriteRemove", { recipeId: this.id });
-    this.style.color = "";
+    this.style.color = "#B49E9C";
   } else {
     $.post("recipes/favorite", { recipeId: this.id });
-    this.style.color = "yellow";
+    this.style.color = "rgb(227, 207, 26)";
   }
   //$("#" + this.id).addClass("favoriteIconToggled");
 });
