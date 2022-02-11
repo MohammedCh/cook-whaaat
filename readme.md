@@ -149,7 +149,6 @@ The created recipes and favorite recipes hold the ID of recipes that the user cr
 ```
 
 
-
 ## Server routes table
 
 | Route                      | HTTP Verb | Description                                                        |
@@ -186,7 +185,7 @@ The website hasn't undergone a lot of testing so it might contain some bugs.
 
 
 ## Demo
-
+![Alt Text](./public/images/demo.gif)
 
 
 ## Special thanks
