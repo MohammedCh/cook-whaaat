@@ -65,11 +65,11 @@
     id="nav-home"
     role="tabpanel"
     aria-labelledby="nav-home-tab"
-    style="margin: 0 5% !important; padding: 2% 24px !important;"
+    {{!-- style="margin: 0 5% !important; padding: 2% 24px !important;" --}}
   >
-    <div class="container">
+    <div class="container" style="margin-left: 8%;">
       <div class="row">
-        <h4 class="center-text">All My Recipes</h4>
+        <h4 class="text-left">All My Recipes</h4>
         {{#each recipes}}
           {{> recipeCard this}}
         {{/each}}
@@ -82,9 +82,9 @@
     id="nav-profile"
     role="tabpanel"
     aria-labelledby="nav-profile-tab">
-      <div class="container">
+      <div class="container" style="margin-left: 8%;">
         <div class="row">
-          <h4 class="center-text">My Favorites</h4>
+          <h4 class="text-left">My Favorites</h4>
           {{#each recipes}}
             {{#ifContains ../userInSession.favoriteRecipes this._id }}
               {{> recipeCard this}}
@@ -100,9 +100,9 @@
     role="tabpanel"
     aria-labelledby="nav-contact-tab"
   >
-    <div class="container">
+    <div class="container" style="margin-left: 8%;">
       <div class="row">
-        <h4 class="center-text">My Recipes</h4>
+        <h4 class="text-left">My Recipes</h4>
         {{#each recipes}}
           {{#ifEqual this.creator ../userInSession._id }}
             {{> recipeCard this}}

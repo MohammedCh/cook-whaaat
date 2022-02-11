@@ -115,3 +115,21 @@ a {
 .center-text{
   margin: 2% 35%;
 }
+
+.card-btns {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: right;
+}
+
+.short {
+  width: 10%;
+}
+
+.xshort {
+  width: 7%;
+}
+
+.long {
+  width: 15%;
+}
