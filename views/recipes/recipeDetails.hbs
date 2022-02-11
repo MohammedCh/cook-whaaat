@@ -3,21 +3,21 @@
     <div class="mb-5 row nowrap justify-content-left">
 
         <div class="col-10">
-            <h2 class="apple">{{recipe.title}}</h2>
+            <h2 class="apple">{{recipesWithCurrentUser.title}}</h2>
         </div>
 
         <div class="row">
-          {{#ifNotEqual recipe.creator "CookWhaaatAdmin"}}
-              <form action="/recipes/{{recipe._id}}/edit" method="get" class="short p-2">
+         {{#ifEqual recipesWithCurrentUser.creator recipesWithCurrentUser.userId}}
+              <form action="/recipes/{{recipesWithCurrentUser._id}}/edit" method="get" class="short p-2">
                   <button type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">
                     <img src="/images/editIcon.png" alt="pencil icon" class="px-2"> Edit</button>
               </form>
 
-            <form action="/recipes/{{recipe._id}}/delete" method="post" class="xshort p-2">
+            <form action="/recipes/{{recipesWithCurrentUser._id}}/delete" method="post" class="xshort p-2">
               <button id="deleteButton" type="submit" class="btn btn-light px-3" style="color: var(--orange) !important;">Delete</button>
             </form>
 
-          {{/ifNotEqual}}
+          {{/ifEqual}}
 
             <form action="/recipes/favorite" method="post" class="long p-2">
               <input class="hidden" value="{{recipe._id}}" name="recipeId" />
@@ -25,19 +25,25 @@
                 Favorite</button>
             </form>
         </div>
-
+{{!--
+      <form action="/recipes/favorite" method="post">
+        <input class="hidden" value="{{recipesWithCurrentUser._id}}" name="recipeId" />
+        <button id="favoriteButton" type="submit" class="btn btn-primary {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}favoriteButtonToggled{{/ifContains}}">
+        <span id="toggleHideText" {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}style="display:none"{{/ifContains}}>Add to Favorites</span>
+        {{#ifContains recipesWithCurrentUser.favoriteRecipes recipesWithCurrentUser._id}}Remove from favorites{{/ifContains}}</button>
+      </form>--}}
     </div>
 
     <div class="row">
         <div class="col-md-4">
 
             <div class="form-group mb-5">
-                <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipe.title}}">
+                <img src="{{recipesWithCurrentUser.imageUrl}}" class="img-fluid rounded-start recipe-image" alt="{{recipesWithCurrentUser.title}}">
             </div>
 
             <div class="form-group mb-5">
                 <h4 class="apple">Ingredients</h4>
-                <ul>{{#each recipe.ingredients}}
+                <ul>{{#each recipesWithCurrentUser.ingredients}}
                       <li>{{this}}</li>
                     {{/each}}
                 </ul>
@@ -51,8 +57,8 @@
 
                 <h4 class="apple">Instructions</h4>
 
-                {{!-- <p>{{recipe.instructions}}</p> --}}
-                <ol>{{#each recipe.instructions}}
+                {{!-- <p>{{recipesWithCurrentUser.instructions}}</p> --}}
+                <ol>{{#each recipesWithCurrentUser.instructions}}
                       <li>{{this}}</li>
                     {{/each}}
                 </ol>
@@ -61,12 +67,4 @@
     </div>
 </div>
 
-{{! script to change add to favorites button  }}
-<script type="text/javascript">
-  $('#favoriteButton').click(function(){
-    $("#favoriteButton").html("Added to favorites!");
-    $('#favoriteButton').css("background-color", "transparent");
-    $('#favoriteButton').css("color", "black");
-    $('#favoriteButton').css("border-style", "none");
-  })
-</script>
+

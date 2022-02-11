@@ -5,6 +5,7 @@ const User = require("../models/User.model");
 const fileUploader = require("../config/cloudinary.config");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const arrayConverter = require("../middleware/arrayConverter").arrayConverter;
+const objectMerger = require("../middleware/objectMerger").objectMerger;
 
 //show list of all recipes
 router.get("/", (req, res) => {
@@ -87,16 +88,41 @@ router.post("/favorite", isLoggedIn, (req, res) => {
     );
 });
 
+//POST route to add recipe to favorites
+router.post("/favoriteRemove", isLoggedIn, (req, res) => {
+  //console.log(typeof req.body.recipeId);
+  User.findByIdAndUpdate(
+    req.session.currentUser._id,
+    { $pull: { favoriteRecipes: req.body.recipeId } },
+    {
+      new: true,
+    }
+  )
+    .then((updatedUser) => {
+      //console.log(updatedUser);
+      //res.status(204).send(); //line does nothing when action done - no redirect or rendering
+      res.redirect("/cookbook");
+    })
+    .catch((error) =>
+      console.log(`Error while creating a new recipe: ${error}`)
+    );
+});
+
 //GET route to render detail view of a specific recipe
 router.get("/:recipeId", (req, res, next) => {
   const { recipeId } = req.params;
-  console.log("This is the recipe id =>", recipeId);
+  //console.log("This is the recipe id =>", recipeId);
 
   Recipe.findById(recipeId)
     .then((recipeDetails) => {
       //console.log(arrayConverter(recipeDetails))
+      const recipesWithCurrentUser = objectMerger(
+        recipeDetails,
+        req.session.currentUser
+      );
+      //console.log(recipesWithCurrentUser);
       res.render("../views/recipes/recipeDetails", {
-        recipe: arrayConverter(recipeDetails),
+        recipesWithCurrentUser: arrayConverter(recipesWithCurrentUser),
         userInSession: req.session.currentUser,
       });
     })
@@ -128,6 +154,9 @@ router.post(
   isLoggedIn,
   fileUploader.single("recipe-cover-image"),
   (req, res) => {
+    const imageUrl =
+      typeof req.file === "undefined" ? req.body.alternativeImg : req.file.path; //if user doesnt provide image, take existing
+    console.log(imageUrl);
     const { recipeId } = req.params;
     const { title, ingredients, instructions } = req.body;
     Recipe.findByIdAndUpdate(
@@ -136,7 +165,7 @@ router.post(
         title,
         ingredients,
         instructions,
-        imageUrl: req.file.path,
+        imageUrl,
       },
       { new: true }
     )

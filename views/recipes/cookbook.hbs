@@ -70,7 +70,7 @@
     <div class="container" style="margin-left: 8%;">
       <div class="row">
         <h4 class="text-left">All My Recipes</h4>
-        {{#each recipes}}
+        {{#each recipesWithCurrentUser}}
           {{> recipeCard this}}
         {{/each}}
       </div>
@@ -85,8 +85,8 @@
       <div class="container" style="margin-left: 8%;">
         <div class="row">
           <h4 class="text-left">My Favorites</h4>
-          {{#each recipes}}
-            {{#ifContains ../userInSession.favoriteRecipes this._id }}
+          {{#each recipesWithCurrentUser}}
+            {{#ifContains this.favoriteRecipes this._id }}
               {{> recipeCard this}}
             {{/ifContains}}
           {{/each}}
@@ -103,8 +103,8 @@
     <div class="container" style="margin-left: 8%;">
       <div class="row">
         <h4 class="text-left">My Recipes</h4>
-        {{#each recipes}}
-          {{#ifEqual this.creator ../userInSession._id }}
+        {{#each recipesWithCurrentUser}}
+          {{#ifEqual this.creator this.userId }}
             {{> recipeCard this}}
           {{/ifEqual}}
         {{/each}}
@@ -126,9 +126,3 @@
   </div>
 </div>
 
-{{! script to change add to favorites icon button  }}
-<script type="text/javascript">
-  $('.material-icons').click(function(){
-    $('#'+this.id).addClass("favoriteIconToggled");
-  })
-</script>

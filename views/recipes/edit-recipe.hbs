@@ -2,7 +2,7 @@
 <div class="row">
   <div class="mb-5">
     <form action="/recipes/{{recipe._id}}/edit" method="post" enctype="multipart/form-data" class="create-recipe" >
-     <h4 class="justify-content-center mb-3">Edit Recipe</h4> 
+     <h4 class="justify-content-center mb-3">Edit Recipe</h4>
     <div class="form-group mb-3">
         <label class="form-label">Title:
           <textarea name="title"  cols="90" rows="1" class="form-control">{{recipe.title}}</textarea>
@@ -30,7 +30,8 @@
         </label>
       </div>
       <div>
-        <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start mb-3" alt="{{recipe.title}}">
+        <input name="alternativeImg" style="display:none" value="{{recipe.imageUrl}}"/>
+        <img src="{{recipe.imageUrl}}" class="img-fluid rounded-start mb-3" id="preEditImg" alt="{{recipe.title}}">
       </div>
       <button type="submit" id="btn" class="btn mb-3">Save Changes</button>
 
